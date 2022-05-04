@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Libro</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Libros</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/libro">Libro</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/editorial">Editorial</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/autor">Autor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tablita">Cliente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Prestamo</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <section class="s3">
+            <form action="/libroRegistrar" method="POST">
+                <legend>Agregar Libro</legend>
+                <div class="mb-3">
+                    <label for="specificSizeInputName">ISBN</label>
+                    <input type="text" class="form-control" placeholder="12345" name="isbnLibro" />
+                </div>
+                <div class="mb-3">
+                    <label for="specificSizeInputName">TITULO</label>
+                    <input type="text" class="form-control" placeholder="Santiago Dodero" name="tituloLibro" />
+                </div>
+                <div class="mb-3">
+                    <label class="col-auto" for="specificSizeInputName">AÑO</label>
+                    <input type="text" class="form-control" placeholder="2006" name="anioLibro" />
+                </div>
+                <div class="mb-3">
+                    <label for="specificSizeInputName">EJEMPLARES</label>
+                    <input type="text" class="form-control" placeholder="6" name="ejemplaresLibro" />
+                </div>
+                <div class="mb-3">
+                    <label for="specificSizeInputName">PRESTADOS</label>
+                    <input type="text" class="form-control" placeholder="3" name="ejemplaresprestadosLibro" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">AUTOR</label>
+                    <select class="form-select" name="autorLibro">
+                        <option th:each="autor:${autor}" th:text="${autor.nombre}" th:value="${autor.nombre}"></option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">EDITORIAL</label>
+                    <select class="form-select" name="editorialLibro">
+                        <option th:each="editorial:${editorial}" th:text="${editorial.nombre}" th:value="${editorial.nombre}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" >
+                    <label class="form-check-label" >
+                        Check
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>         
+            <nav>
+                <h1></h1>
+            </nav>
+            <div class="alert alert-danger" role="alert" th:if="${mensaje != null}">
+                <p th:if="${mensaje != null}" th:text="${mensaje}"></p>
+            </div>
+            
+        </section>
+        
+        <nav class="division">
+            
+        </nav>
+        <nav class="tituloa">
+            <h1>
+                LIBROS
+            </h1>
+            
+        </nav>
+        <nav class="division">
+            
+        </nav>
+        
+        <nav id="marron">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <form action="/vertodoseditorial" method="GET" class="row gx-3 gy-2 align-items-center">
+                                    <button  type="submit" class="btn btn-info">
+                                        Ver: Todos
+                                    </button>
+                                </form>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/veraltaeditorial" method="GET" class="row gx-3 gy-2 align-items-center">
+                                    <button  type="submit" class="btn btn-success">
+                                        Ver: Alta
+                                    </button>
+                                </form>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/verbajaeditorial" method="GET" class="row gx-3 gy-2 align-items-center">
+                                    <button  type="submit" class="btn btn-warning">
+                                        Ver: Baja
+                                    </button>
+                                </form> 
+                            </div>  
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </nav>
+
+        <nav class="division">
+            
+        </nav>
+        
+        <table id="tablita" class ="table table-dark table-striped">
+            <tbody>
+                <tr>
+                    <td>ISBN</td>
+                    <td>TITULO</td>
+                    <td>AÑO</td>
+                    <td>CANT.</td>
+                    <td>+</td>
+                    <td>-</td>
+                    <td>PRESTADOS</td>
+                    <td>AUTOR</td>
+                    <td>EDITORIAL</td>
+                    <td>ELIMINAR</td>
+                </tr>
+                <tr th:each="libro:${libro}">
+                    <td th:text="${libro.isbn}"></td>
+                    <td th:text="${libro.titulo}"></td>
+                    <td th:text="${libro.anio}"></td>
+                    <td th:text="${libro.ejemplares}">
+                        <a th:href="@{agregarejemplares/{id} (id=${libro.id})}" class="btn btn-success">
+                            +
+                        </a>
+                        <a th:href="@{sacarejemplares/{id} (id=${libro.id})}" class="btn btn-danger">
+                            -
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{agregarejemplares/{id} (id=${libro.id})}" class="btn btn-success">
+                            +
+                        </a>
+                        <a th:href="@{sacarejemplares/{id} (id=${libro.id})}" class="btn btn-danger">
+                            -
+                        </a>
+                    </td>
+                    
+                    <td th:text="${libro.ejemplaresprestados}">
+                        
+                    </td>
+                    <td th:text="${libro.autor.nombre}"></td>
+                    <td th:text="${libro.editorial.nombre}"></td>
+                    <td>
+                    <a th:href="@{eliminarlibro/{id} (id=${libro.id})}" class="btn btn-danger">
+                        Eliminar
+                    </a>
+                </td>
+                </tr>
+            </tbody>
+        </table>  
+        
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <!-- CSS only -->
+        
+    </body>
+</html>

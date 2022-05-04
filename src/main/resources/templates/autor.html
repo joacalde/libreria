@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Autor</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Autores</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/libro">Libro</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/editorial">Editorial</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/autor">Autor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tablita">Cliente</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Prestamo</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <section class="s1">
+            <form action="/autorregistrar" method="POST" class="row gx-3 gy-2 align-items-center">
+                <div class="col-sm-3" >
+                  <label class="visually-hidden" for="specificSizeInputName">Name</label>
+                  <input type="text" class="form-control" placeholder="Santiago Dodero" name="nombreAutor" />
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+            <nav>
+                <h1></h1>
+            </nav>
+            <div class="alert alert-danger" role="alert" th:if="${mensaje != null}">
+                <p th:if="${mensaje != null}" th:text="${mensaje}"></p>
+            </div>
+            
+        </section>
+        
+        <nav class="division">
+            
+        </nav>
+        <nav class="tituloa">
+            <h1>
+                AUTORES
+            </h1>
+            
+        </nav>
+        <nav class="division">
+            
+        </nav>
+        
+        <nav id="marron">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <form action="/vertodos" method="GET" class="row gx-3 gy-2 align-items-center">
+                                    <button  type="submit" class="btn btn-info">
+                                        Ver: Todos
+                                    </button>
+                                </form>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/veralta" method="GET" class="row gx-3 gy-2 align-items-center">
+                                    <button  type="submit" class="btn btn-success">
+                                        Ver: Alta
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/verbaja" method="GET" class="row gx-3 gy-2 align-items-center">
+                                    <button  type="submit" class="btn btn-warning">
+                                        Ver: Baja
+                                    </button>
+                                </form> 
+                            </div>  
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </nav>
+
+        <nav class="division">
+            
+        </nav>
+        
+        <table id="tablita" class ="table table-dark table-striped">
+            <tbody>
+                <tr th:each="autor:${autor}">
+                <th scope="col"></th>
+                <td th:text="${autor.nombre}"></td>
+                <td th:if="${autor.alta}">
+                    <a th:href="@{baja/{id} (id=${autor.id})}" class="btn btn-warning">
+                        Dar de baja
+                    </a>
+                </td>
+                <td th:unless="${autor.alta}">
+                    <a th:href="@{alta/{id} (id=${autor.id})}" class="btn btn-success">
+                        Dar de alta
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{eliminarautor/{id} (id=${autor.id})}" class="btn btn-danger">
+                        Eliminar
+                    </a>
+                </td>
+                
+                <td th:if="${autor.editar}" ><a th:href="@{editarautor/{id} (id=${autor.id})}" class="btn btn-info" >Editar</a></td>
+                <td th:unless="${autor.editar}">
+                    <form action="/editarautor2" method="GET" class="row gx-3 gy-2 align-items-center">
+                        <div class="col-sm-3">
+                            <label class="visually-hidden" for="specificSizeInputName">Name</label>
+                            <input type="text" class="form-control" placeholder="Santiago Dodero" name="nombreeditarautor" />
+                            <input type="hidden" name="ideditarautor" th:value="${autor.id}">
+                        </div>
+                        <div class="col-auto">
+                            <button  type="submit" class="btn btn-info">
+                                Editar
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                        <a th:href="@{editarautorcancel/{id} (id=${autor.id})}" class="btn btn-danger" >Dejar de editar</a>
+                        </div>
+                    </form>
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </symbol>
+                        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                        </symbol>
+                        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </symbol>
+                    </svg>
+                    <div th:if="${mensajeeditar != null && ideditar == autor.id}" class="alert alert-danger d-flex align-items-center" role="alert" id="alertaeditar">
+                        <svg class="bi flex-shrink-0 me-2" width="15" height="15" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                            <p th:text="${mensajeeditar}"></p>
+                        </div>
+                    </div>
+                </td>
+                </tr>
+            </tbody>
+        </table>  
+        
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <!-- CSS only -->
+        
+    </body>
+</html>
