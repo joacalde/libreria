@@ -156,9 +156,9 @@
                     <td>TITULO</td>
                     <td>AÑO</td>
                     <td>CANT.</td>
-                    <td>+</td>
-                    <td>-</td>
+                    <td>+/-</td>
                     <td>PRESTADOS</td>
+                    <td>+/-</td>
                     <td>AUTOR</td>
                     <td>EDITORIAL</td>
                     <td>ELIMINAR</td>
@@ -167,14 +167,7 @@
                     <td th:text="${libro.isbn}"></td>
                     <td th:text="${libro.titulo}"></td>
                     <td th:text="${libro.anio}"></td>
-                    <td th:text="${libro.ejemplares}">
-                        <a th:href="@{agregarejemplares/{id} (id=${libro.id})}" class="btn btn-success">
-                            +
-                        </a>
-                        <a th:href="@{sacarejemplares/{id} (id=${libro.id})}" class="btn btn-danger">
-                            -
-                        </a>
-                    </td>
+                    <td th:text="${libro.ejemplares}"></td>
                     <td>
                         <a th:href="@{agregarejemplares/{id} (id=${libro.id})}" class="btn btn-success">
                             +
@@ -184,8 +177,14 @@
                         </a>
                     </td>
                     
-                    <td th:text="${libro.ejemplaresprestados}">
-                        
+                    <td th:text="${libro.ejemplaresprestados}"></td>
+                    <td>
+                        <a th:href="@{agregarprestados/{id} (id=${libro.id})}" class="btn btn-success">
+                            +
+                        </a>
+                        <a th:href="@{sacarprestados/{id} (id=${libro.id})}" class="btn btn-danger">
+                            -
+                        </a>
                     </td>
                     <td th:text="${libro.autor.nombre}"></td>
                     <td th:text="${libro.editorial.nombre}"></td>
